@@ -22,7 +22,7 @@ def splitcsv(csv):
     for line in csv:
         elem = line.split(',')
         id = elem[0]
-        pos = elem[1:-1]
+        pos = map(float, elem[1:-1])
         csvdict[id] = pos
     
     return csvdict
@@ -36,9 +36,24 @@ def main(args):
         upPos = up[sample]
         upPos.reverse()
         downPos = down[sample]
-        profiles = [sample] + upPos[:-1] + downPos
         
-        print ','.join(profiles)
+        # 1 / 
+        #profiles = [sample] + upPos[:-1] + downPos
+        #print ','.join(profiles)
+        
+        # 2 / 
+        profiles = upPos[:-1] + downPos
+        sumReads = sum(profiles)
+        tmplst = []
+        for reads in (profiles):
+            tmplst.append(reads/sumReads)
+            
+        profiles = [sample] + tmplst
+        print ','.join(map(str, profiles))
+        
+        # 3 /
+        
+        
 
 if __name__ == '__main__':
     args = getArgs()
