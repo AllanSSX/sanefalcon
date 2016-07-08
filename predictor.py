@@ -43,8 +43,8 @@ def loadNuclFile(nuclFile):
 			splitLine=line.strip().split(",")
 			if len(splitLine)<3:
 				continue
-			sampleName=splitLine[0].split("/")[-1].split(".")[0].split('-')[-1]
-			values=[float(x) for x in splitLine[int(sys.argv[6]):int(sys.argv[7])]]
+			sampleName=splitLine[0]#.split("/")[-1].split(".")[0].split('-')[-1] -> Alex
+			values=[float(x) for x in splitLine[1:]]#[int(sys.argv[6]):int(sys.argv[7])]] -> Alex
 			valSum=sum(values)
 			samples[sampleName]=[x/valSum for x in values]
 			coverages[sampleName]=valSum
@@ -57,9 +57,9 @@ def loadRefFile(refFile):
 	bads=dict()
 	with open(refFile) as referenceFile:
 		for line in referenceFile:
-			splitLine=line.strip().split(" ")
+			splitLine=line.split()#strip().split(" ") -> Alex
 			
-			splitLine[0] = splitLine[0].split('-')[-1]
+			#splitLine[0] = splitLine[0].split('-')[-1] -> Alex
 			
 			if len(splitLine)<3:
 				continue
@@ -350,7 +350,7 @@ def main(argv=None):
 	
 	# Load known answers for our data
 	reference,series,girls,bads = loadRefFile(argv[2])
-	
+
 	# Filter out samples that are missing in either file
 	trainingSet,trainingSetNo = splitByReference(samples,reference)
 	covs=[coverages[x] for x in trainingSet]
