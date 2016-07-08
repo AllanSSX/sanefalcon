@@ -35,7 +35,7 @@ def main(args):
     up = splitcsv(args.up)
     down = splitcsv(args.down)
     
-    plt.figure(figsize=(16, 2))
+    plt.figure(figsize=(16, 4))
     for sample in sorted(up.keys()):
         
         upPos = up[sample]
@@ -44,7 +44,7 @@ def main(args):
         
         # 1 / 
         profiles = [sample] + upPos[:-1] + downPos
-        print ','.join(profiles)
+        print ','.join(map(str, profiles))
         
         # 2 / 
         profiles = upPos[:-1] + downPos
@@ -52,15 +52,11 @@ def main(args):
         tmplst = []
         for reads in (profiles):
             tmplst.append(reads/sumReads)
-            
-        #profiles = [sample] + tmplst
-        #print ','.join(map(str, profiles))
-        
         plt.plot(tmplst)
     
     plt.xlim([0,292])
     center = 147-1
-    plt.xticks([0,center-93, center-73,center, center+73,center+93,len(train)-1],['\nUpstream','93','73\nStart','0\nCenter','73\nEnd','93','\nDownstream'])
+    plt.xticks([0,center-93, center-73,center, center+73,center+93,len(tmplst)-1],['\nUpstream','93','73\nStart','0\nCenter','73\nEnd','93','\nDownstream'])
     plt.axvline(x=center-93, linewidth=1, ls='--', color = 'k')
     plt.axvline(x=center-73, linewidth=1, ls='--', color = 'k')
     plt.axvline(x=center, linewidth=1, ls='--', color = 'k')
@@ -70,7 +66,7 @@ def main(args):
     plt.title("Nucleosome Profile")
     plt.xlabel("Nucleosome BP Position")
     plt.ylabel("Ratio")  
-    plt.savefig("nuclProfiles.pdf", dpi=100)
+    plt.savefig("nuclProfiles.pdf", dpi=400)
   
 if __name__ == '__main__':
     args = getArgs()
