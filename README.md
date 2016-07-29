@@ -266,6 +266,5 @@ python ../sanefalcon/predictor.py train_NuclProfR_all.csv trainRef.ff trainModel
 ln -s ../data/nucleosome-track/nucl_exR.* .
 ls readStarts/ | sed 's/\./\t/' | cut -f1 | sort | uniq | while read line; do touch ${line}.bam; done  
 nohup bash ../sanefalcon/getProfile_ac.sh . R &  
-ls *.bam | while read line; do bash ../../sanefalcon/predict.sh ../../training_all/trainModel.model nucProfile/${line%.*}; done`  
-
+ls *.bam | while read line; do bash ../../sanefalcon/predict.sh ../../training_all/trainModel.model nucProfile/${line%.*}; done 
 ```
