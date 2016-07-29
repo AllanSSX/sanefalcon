@@ -43,8 +43,10 @@ def loadNuclFile(nuclFile):
 			splitLine=line.strip().split(",")
 			if len(splitLine)<3:
 				continue
-			sampleName=splitLine[0]#.split("/")[-1].split(".")[0].split('-')[-1] -> Alex
-			values=[float(x) for x in splitLine[1:]]#[int(sys.argv[6]):int(sys.argv[7])]] -> Alex
+			#sampleName=splitLine[0].split("/")[-1].split(".")[0].split('-')[-1]
+			sampleName=splitLine[0]
+			#values=[float(x) for x in splitLine[1:]]#[int(sys.argv[6]):int(sys.argv[7])]]
+			values=[float(x) for x in splitLine[1:]]
 			valSum=sum(values)
 			samples[sampleName]=[x/valSum for x in values]
 			coverages[sampleName]=valSum
