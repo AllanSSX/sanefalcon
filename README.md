@@ -91,6 +91,30 @@ For ease of use and tracking, make a folder structure as shown next:
 - `...`
 -- ...
 
+```
+training/
+??? 1
+?   ??? Groix-107_DNI160081.bam
+?   ??? Groix-115_DNI160110.bam
+?   ??? Groix-81_DNI160014.bam
+?   ??? Groix-90_DNI1600304.bam
+?   ??? nucProfile/
+?   ??? readStarts/
+??? 2
+?   ??? Groix-106_DNI160070.bam
+?   ??? Groix-114_DNI160106.bam
+?   ??? Groix-80_DNI160009.bam
+?   ??? Groix-98_DNI160054.bam
+?   ??? nucProfile/
+?   ??? readStarts/
+??? 3
+    ??? Groix-105_DNI160075.bam
+    ??? Groix-113_DNI160102.bam
+    ??? Groix-78_DNI160002.bam
+    ??? Groix-87_DNI160026.bam
+    ??? nucProfile/
+    ??? readStarts/
+```
 
 ***
 **The following steps have to be done for each of these subsets, as well as all subsets combined.**
@@ -211,7 +235,7 @@ It will add nucleosome profiles per strand into a single file and apply the mode
 *Overview of the whole SANEFALCON script. Small numbers in the top right of boxes are the subsections in this document where the step is described.*
 
 ### Command-line
-
+```
 `1 / Prep folders`   
 `for subset in $(seq 1 7); do mkdir ${subset} ; done`   
 `for subset in $(seq 1 7); do mkdir ${subset}/nucProfile/ ${subset}/readStarts/  ; done`   
@@ -244,3 +268,4 @@ It will add nucleosome profiles per strand into a single file and apply the mode
 `nohup bash ../sanefalcon/getProfile_ac.sh . R &`   
 `ls *.bam | while read line; do bash ../../sanefalcon/predict.sh ../../training_all/trainModel.model nucProfile/${line%.*}; done`   
 
+```
