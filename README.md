@@ -209,3 +209,42 @@ It will add nucleosome profiles per strand into a single file and apply the mode
 ## Schematic overview of the scripts
 ![ ](http://rstraver.github.io/img/sanefalcon_diag.png  "Schematic overview of SANEFALCON")  
 *Overview of the whole SANEFALCON script. Small numbers in the top right of boxes are the subsections in this document where the step is described.*
+
+### Command-line
+
+`
+1 / Prep folders
+for subset in $(seq 1 7); do mkdir ${subset} ; done
+for subset in $(seq 1 7); do mkdir ${subset}/nucProfile/ ${subset}/readStarts/  ; done
+
+2 / Create bam (by folder)
+ls readStarts/ | sed 's/\./\t/' | cut -f1 | sort | uniq | while read line; do touch ${line}.bam; done
+
+3 / List all bam and the structure
+ls */*.bam | cut -d '_' -f1 | sort | uniq | sed 's/\//\t/' > run.tree
+
+4 / Run sanefalcon
+for subset in $(seq 1 7); do { nohup ../sanefalcon/merge.sh $subset & } ; done
+for subset in $(seq 1 7); do { nohup ../sanefalcon/mergeAntiSub.sh . $subset & } ; done
+for subset in $(seq 1 7); do { nohup ../sanefalcon/nuclDetectorAnti.sh $subset & } ; done
+for subset in $(seq 1 7); do { nohup ../sanefalcon/getProfile_ac.sh $subset R & } ; done
+
+../sanefalcon/combProf.sh . >> upstreamProfs_Rnucl.csv
+#for subset in $(seq 1 7); do ../sanefalcon/combProf.sh ${subset}/nucProfile/nuclR >> upstreamProfsR.csv  ; done
+../sanefalcon/combProfI.sh . >> downstreamProfs_Rnucl.csv
+#for subset in $(seq 1 7); do ../sanefalcon/combProfI.sh ${subset}/nucProfile/nucl3 >> downstreamProfs3.csv  ; done
+
+
+../sanefalcon/fuseProfiles.py -u upstreamProfs_Rnucl.csv -d downstreamProfs_Rnucl.csv > trainRNucl.csv
+
+5 / Training
+python ../sanefalcon/predictor.py train_NuclProfR_all.csv trainRef.ff trainModel
+
+6 / Test
+ln -s ../data/nucleosome-track/nucl_exR.* .
+ls readStarts/ | sed 's/\./\t/' | cut -f1 | sort | uniq | while read line; do touch ${line}.bam; done
+nohup bash ../sanefalcon/getProfile_ac.sh . R &
+ls *.bam | while read line; do bash ../../sanefalcon/predict.sh ../../training_all/trainModel.model nucProfile/${line%.*}; done
+`
+
+
