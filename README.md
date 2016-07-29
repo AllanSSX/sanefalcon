@@ -93,27 +93,27 @@ For ease of use and tracking, make a folder structure as shown next:
 
 ```
 training/
-??? 1
-?   ??? Groix-107_DNI160081.bam
-?   ??? Groix-115_DNI160110.bam
-?   ??? Groix-81_DNI160014.bam
-?   ??? Groix-90_DNI1600304.bam
-?   ??? nucProfile/
-?   ??? readStarts/
-??? 2
-?   ??? Groix-106_DNI160070.bam
-?   ??? Groix-114_DNI160106.bam
-?   ??? Groix-80_DNI160009.bam
-?   ??? Groix-98_DNI160054.bam
-?   ??? nucProfile/
-?   ??? readStarts/
-??? 3
-    ??? Groix-105_DNI160075.bam
-    ??? Groix-113_DNI160102.bam
-    ??? Groix-78_DNI160002.bam
-    ??? Groix-87_DNI160026.bam
-    ??? nucProfile/
-    ??? readStarts/
+|_ 1
+|   |_ Groix-107_DNI160081.bam
+|   |_ Groix-115_DNI160110.bam
+|   |_ Groix-81_DNI160014.bam
+|   |_ Groix-90_DNI1600304.bam
+|   |_ nucProfile/
+|   |_ readStarts/
+|_ 2
+|   |_ Groix-106_DNI160070.bam
+|   |_ Groix-114_DNI160106.bam
+|   |_ Groix-80_DNI160009.bam
+|   |_ Groix-98_DNI160054.bam
+|   |_ nucProfile/
+|   |_ readStarts/
+|_ 3
+    |_ Groix-105_DNI160075.bam
+    |_ Groix-113_DNI160102.bam
+    |_ Groix-78_DNI160002.bam
+    |_ Groix-87_DNI160026.bam
+    |_ nucProfile/
+    |_ readStarts/
 ```
 
 ***
