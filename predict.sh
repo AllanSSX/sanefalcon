@@ -1,5 +1,5 @@
 SCRIPT_PYTHON=python
-SCRIPT_PREDICT=predict.py
+SCRIPT_PREDICT=/home/acormier/working_directory/DPNI/sanefalcon/predict.py
 
 FILE_CORR=$1
 FILE_OUTPUT=$2
